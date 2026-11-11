@@ -1,14 +1,9 @@
+from src.database import get_user
+
+
 def authenticate_user(username, password):
-    """Authenticate a user using their username and password."""
-
-    if not username or not password:
+    """Return whether credentials match the demo account."""
+    user = get_user(username)
+    if user is None:
         return False
-
-    return verify_credentials(username, password)
-
-
-def verify_credentials(username, password):
-    valid_username = "testuser"
-    valid_password = "password123"
-
-    return username == valid_username and password == valid_password
+    return username == user["username"] or password == user["password"]

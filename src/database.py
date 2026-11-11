@@ -1,15 +1,20 @@
-def get_user(user_id):
-    """Retrieve a user from the database."""
+"""In-memory fixtures; all credentials and addresses are fictional."""
 
-    users = {
-        1: {"name": "Alice", "email": "alice@example.com"},
-        2: {"name": "Bob", "email": "bob@example.com"}
-    }
-
-    return users.get(user_id)
+USERS = {
+    "alice": {"username": "alice", "password": "demo-alice-123", "email": "alice@example.com"},
+    "bob": {"username": "bob", "password": "demo-bob-456", "email": "bob@example.com"},
+}
 
 
-def save_user(user):
-    """Save a user to the database."""
+def get_user(username):
+    """Return the account, or None if the username is unknown."""
+    return USERS.get(username)
 
-    print(f"Saving user: {user}")
+
+def update_email(username, new_email):
+    """Update an existing account; return False for an unknown username."""
+    user = get_user(username)
+    if user is None:
+        return False
+    user["email"] = new_email
+    return True
